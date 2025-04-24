@@ -1,12 +1,12 @@
 from DataLoader import load_clean_data
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import KFold, cross_val_score
+from sklearn.model_selection import KFold, cross_val_score, learning_curve
+import numpy as np
 
 #Settings
 target = 'target'
@@ -92,7 +92,30 @@ def get_plot_tree():
     plt.title(f"Beslutningstræ (max_depth={max_depth})")
     plt.show()
 
+def get_learning_curve_plot():
+    #Get values
+    train_sizes, train_scores, test_scores = learning_curve(
+        DT_model, X, y, cv=5, scoring='accuracy',
+        train_sizes=np.linspace(0.1, 1.0, 5)
+    )
+    train_score_mean = np.mean(train_scores, axis=1)
+    test_score_mean = np.mean(test_scores, axis=1)
+
+    #Make plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(train_sizes, train_score_mean, label='Decision Tree - Train', linestyle='--', marker='o')
+    plt.plot(train_sizes, test_score_mean, label='Decision Tree - Test', marker='o')
+
+    plt.xlabel("Number of training samples")
+    plt.ylabel("Accuracy")
+    plt.title("Learning Curves of DecisionTree")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
 if __name__ == "__main__":
     #get_confusion_matrix(seaborn = False)
     #get_plot_tree()
-    get_metrics()
+    #get_metrics()
+    get_learning_curve_plot()
