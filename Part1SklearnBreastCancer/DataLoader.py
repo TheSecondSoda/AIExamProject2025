@@ -1,5 +1,6 @@
 from sklearn.datasets import load_breast_cancer
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -14,8 +15,11 @@ def load_clean_data():
     return df
 
 def apply_PCA_to_data(X, y, n_components):
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
     pca = PCA(n_components=n_components)
-    X_pca = pca.fit_transform(X)
+    X_pca = pca.fit_transform(X_scaled)
 
     #Convert to dataframe for convenience
     columns = [f'PC{i+1}' for i in range(n_components)]
@@ -67,5 +71,5 @@ if __name__ == "__main__":
     data = load_clean_data()
     #explore_load_data(data)
     pca_df = apply_PCA_to_data(data.drop(columns=['target']), data['target'], 2)
-    explore_load_data(pca_df)
+    #explore_load_data(pca_df)
     plot_PCA_2D(pca_df)

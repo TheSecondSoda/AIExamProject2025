@@ -117,5 +117,5 @@ def get_learning_curve_plot():
 if __name__ == "__main__":
     #get_confusion_matrix(seaborn = False)
     #get_plot_tree()
-    #get_metrics()
-    get_learning_curve_plot()
+    get_metrics()
+    #get_learning_curve_plot()

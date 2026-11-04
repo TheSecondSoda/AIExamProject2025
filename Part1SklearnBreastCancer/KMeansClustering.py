@@ -55,6 +55,6 @@ def plot_confusion_matrix(y_true, y_pred, title="Confusion Matrix"):
     plt.show()
 
 if __name__ == "__main__":
-    #elbow_method(X)
+    elbow_method(X)
     cluster_labels = KMeans_cluster(X, 2)
     plot_confusion_matrix(y, cluster_labels)

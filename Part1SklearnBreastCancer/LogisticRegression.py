@@ -13,7 +13,7 @@ subset_start = 0
 subset_end = 15
 test_size = 0.2
 random_state = 42
-max_iter = 100
+max_iter = 1000
 penalty = 'l2'
 solver = 'lbfgs'
 
@@ -119,6 +119,6 @@ def plot_logistic_weights(penalties, solvers):
 
 if __name__ == "__main__":
     #get_confusion_matrix(seaborn = True)
-    get_metrics()
+    #get_metrics()
     #get_roc_curve()
-    #plot_logistic_weights(penalties = [None, 'l1', 'l2'], solvers = {None: 'lbfgs', 'l1': 'liblinear', 'l2': 'liblinear'})
+    plot_logistic_weights(penalties = [None, 'l1', 'l2'], solvers = {None: 'lbfgs', 'l1': 'liblinear', 'l2': 'liblinear'})
